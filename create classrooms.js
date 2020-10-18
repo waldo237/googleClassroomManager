@@ -7,10 +7,9 @@ const heading = ss.getDataRange().offset(0, 0).getValues();
 
 function createCourse(data) {
   const course = Classroom.Courses.create(data);
-
-  Classroom.Courses.Teachers.create({
-    userId: data.email,
-  }, course.id);
+  const teacher = Classroom.newTeacher();
+  teacher.userId = 'waldo23793@gmail.com';
+  Classroom.Courses.Teachers.create({ teacher, courseId: course.id });
   Logger.log('Course created: %s (%s)', course.name, course.id);
 }
 
@@ -19,7 +18,7 @@ function createManyCourses() {
     if (i > 0) {
       const [name, section, descriptionHeading, description, room, ownerId] = classDetails;
       createCourse({
-        name, section, descriptionHeading, description, room, ownerId: 'me', email: ownerId, courseState: 'PROVISIONED',
+        name, section, descriptionHeading, description, room, ownerId: 'me', courseState: 'PROVISIONED',
       });
     }
   });
