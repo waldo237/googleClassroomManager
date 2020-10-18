@@ -1,13 +1,14 @@
 /**
  * Lists all course names and ids.
  */
-function listCourses() {
+function deleteAllCourses() {
   var courses = [];
   const pageToken = null;
   const optionalArgs = {
     pageToken,
     pageSize: 100,
   };
+
   while (true) {
     const response = Classroom.Courses.list(optionalArgs);
     var { courses } = response;
@@ -20,7 +21,7 @@ function listCourses() {
   } else {
     Logger.log('Courses:');
     for (course in courses) {
-      Logger.log('%s (%s)', courses[course].name, courses[course].id);
+      Classroom.Courses.remove(courses[course].id);
     }
   }
 }
