@@ -30,6 +30,15 @@ function coursePatch(course_id) {
   heading.forEach((classDetails, i) => {
     if (i > 0) {
       const [ownerId] = classDetails;
+
+      // name
+      // section
+      // descriptionHeading
+      // description
+      // room
+      // courseState
+      // ownerId
+
       let course = {
         ownerId,
       };

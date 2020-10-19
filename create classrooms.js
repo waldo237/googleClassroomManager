@@ -7,9 +7,6 @@ const heading = ss.getDataRange().offset(0, 0).getValues();
 
 function createCourse(data) {
   const course = Classroom.Courses.create(data);
-  const teacher = Classroom.newTeacher();
-  teacher.userId = 'waldo23793@gmail.com';
-  Classroom.Courses.Teachers.create({ teacher, courseId: course.id });
   Logger.log('Course created: %s (%s)', course.name, course.id);
 }
 
