@@ -16,19 +16,17 @@ function getOutSheet() {
 
 // find the number of classroom in the output for that center and coordinator and compare with the number of classrooms required
 // substitute classrooms that are done with this data instead.
-function getOutputedRecordsFromCenter(queryData) {
-  const { centerName, representative } = queryData;
-  console.log('centerName', centerName)
-  console.log('representative', representative)
+function getOutputedRecordsFromCenter(centerName, representative) {
   const range = getOutSheet().getRange(1, 1, getOutSheet().getLastRow(), getOutSheet().getLastColumn()).getValues();
 
-  const filtered = range.filter((center) => {
-    return center[4].toString().localeCompare(representative) == 1
-      && center[9].toString().localeCompare(centerName) == 1;
-  })
 
-  const objectified = filtered.map(center => {
-    let results = {};
+let index = range.length - 1;
+// classrooms that belong to this center and rep
+const belongingGC = [];
+  while (index) {
+    let center = range[index];
+    if (center[4]== representative &&  center[11]==centerName) {
+      let results = {};
 
       results[range[0][0]] = center[0];
       results[range[0][1]] = center[1];
@@ -46,9 +44,10 @@ function getOutputedRecordsFromCenter(queryData) {
       results[range[0][13]] = center[13];
       results[range[0][14]] = center[14];
       results[range[0][15]] = center[15];
-
-    return results;
-  })
-  objectified.shift(); //remove the first
-  return objectified;
+     
+     belongingGC.push(results)
+    }
+    index--;
+  }
+  return belongingGC;
 }

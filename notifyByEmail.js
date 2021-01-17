@@ -38,7 +38,6 @@ function htmlMessage(center) {
 
   function createRowPerClassroom(classrooms) {
     let rows = "";
-    console.log('foreach classrooms from notify by email: ', classrooms)
     classrooms.forEach(classroom => {
       rows = rows + ` <tr class="c8">
           <td class="c3" colspan="1" rowspan="1">
