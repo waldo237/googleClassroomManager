@@ -1,6 +1,3 @@
-/**
- * Lists all course names and ids.
- */
 function deleteAllCourses() {
   var courses = [];
   const pageToken = null;
@@ -21,7 +18,7 @@ function deleteAllCourses() {
   } else {
     Logger.log('Courses:');
     for (course in courses) {
-      courses[course].courseState = 'ARCHIVED';
+            courses[course].courseState = 'ARCHIVED';
       Classroom.Courses.update(courses[course], courses[course].id);
     }
   }

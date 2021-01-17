@@ -771,7 +771,7 @@ function importClassBluePrint() {
 }
 
 function getSheet() {
-  const ss = SpreadsheetApp.openById('1gN7MJwN6EU-qnK5AiWXyjKATUMTOvpoMs-PDlm9gvuU');// <<< UPDATE THIS
+  const ss = SpreadsheetApp.openById('1PYjJRORL4wkVMKDzFS36s-8v6k2KgwohQ38FB-Yps44');// <<< the blueprint
   const sheet = ss.getSheetByName('Sheet1');// <<< UPDATE THIS
   return sheet;
 }
