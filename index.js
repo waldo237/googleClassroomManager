@@ -9,16 +9,16 @@ function s() {
     const courses = Classroom.Courses.list().courses;
     const theCreatorsEmail = Session.getEffectiveUser().getEmail();
     const centerNameCounter = {}
-    if (checkIfBatchIsInitialized()) addLog('This batch was already initialized but it is still in progress')
 
-    for(center of centers) {
-    let thereAreNotMoreClassroomsLeft = false;
+    for (center of centers) {
+      let thereAreNotMoreClassroomsLeft = false;
       const numberOfClassrooms = Number.parseInt(center[3]), centerName = center[0], representative = center[1],
         email = center[2], supervisor = center[4], supervisorEmail = center[5], city = center[6],
         province = center[7], region = center[8];
 
       let classroomsThatAreDone = [];
 
+      if (checkIfBatchIsInitialized(centerName, representative)) addLog('This batch was already initialized but it is still in progress')
 
       // find the number of the row in order to update and compare the values of numberOfCenters and updated
       const recordIndex = centers.indexOf(center) + 2;
@@ -39,16 +39,16 @@ function s() {
 
         if (numberOfClassrooms != updateCurrentVal) {
           const course = courses.pop(); //pick the next course from the list.
-         
+
           if (!course) {
-            addLog(`There are not more classes available in this email address. The next Classroom should be ${centerName} | classroom ${updateCurrentVal+1} from ${representative}`)
+            addLog(`There are not more classes available in this email address. The next Classroom should be ${centerName} | classroom ${updateCurrentVal + 1} from ${representative}`)
             thereAreNotMoreClassroomsLeft = true;
             break;
-          }else if (courses[courses.length-1] && !courses[courses.length-1].name.toLocaleLowerCase().includes('copy')){
-              console.log('continue', courses[courses.length-1].name);
-              continue;
-          } 
-          if (course.name.toLocaleLowerCase().includes('copy')) {
+          } else if (courses[courses.length - 1] && !courses[courses.length - 1].name.toLocaleLowerCase().includes('copia')) {
+            console.log('continue', courses[courses.length - 1].name);
+            continue;
+          }
+          if (course.name.toLocaleLowerCase().includes('copia')) {
 
             const updatedClassroom = updateClassroomMetaInfo({ centerName, city, province, email, representative, course, updateCurrentVal, centerNameCounter });
             classroomsThatAreDone.push(updatedClassroom);
@@ -82,17 +82,17 @@ function s() {
 
         }
       }
-    if(thereAreNotMoreClassroomsLeft) break;
+      if (thereAreNotMoreClassroomsLeft) break;
       /**
        * Send an email with all the information of each class the representative
        * has and giving instructions on what to do next. 1→ email per Rep,  cc, supervisor and
        * param center: { emailAddresses: [ ], centerName, coordinator, classrooms:[ { section, enrollmentCode, name } ]} 
        */
 
-      if (classroomsThatAreDone.length && !checkIfBatchIsInitialized()) {
-        classroomsForEmails = getOutputedRecordsFromCenter( centerName, representative)
+      if (classroomsThatAreDone.length && !checkIfBatchIsInitialized(centerName, representative)) {
+      classroomsForEmails = getOutputedRecordsFromCenter(centerName, representative)
 
-        notifyByEmail({ emailAddresses: [email, supervisorEmail], centerName, coordinador: representative, classrooms: classroomsForEmails });
+      notifyByEmail({ emailAddresses: [email, supervisorEmail], centerName, coordinador: representative, classrooms: classroomsForEmails });
       }
     }
   } catch (e) {

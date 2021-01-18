@@ -5,12 +5,12 @@ function sendInvitations(resources) {
     const teacherInvitation = Classroom.newInvitation();
     teacherInvitation.courseId = course.id;
     teacherInvitation.role = "TEACHER";
-    teacherInvitation.userId = email.toString();
+    teacherInvitation.userId = email.toString().trim();
 
     const superInvitation = Classroom.newInvitation();
     superInvitation.courseId = course.id;
     superInvitation.role = "TEACHER";
-    superInvitation.userId = supervisorEmail.toString();
+    superInvitation.userId = supervisorEmail.toString().trim();
 
     // remove invitations if exist
     const existingInvites = list({ courseId: course.id }).invitations;

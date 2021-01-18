@@ -9,7 +9,7 @@ function notifyByEmail(center) {
       to: emailAddresses.join(', '),
       bcc: 'eipvirtual2021@gmail.com',
       replyTo: `wmilanes@mescyt.gob.do,eipvirtual2021@gmail.com, ${Session.getEffectiveUser().getEmail()}`,
-      subject: "ACUSE DE ENVÍO DE AULAS DE GOOGLE CLASSROOM",
+      subject: "ACUSE DE ENVÍO DE AULAS DE GOOGLE CLASSROOM, EIP-MESCYT-2021 (Confirmación de URGENCIA)",
       htmlBody: htmlMessage(center),
 
     });
@@ -47,7 +47,7 @@ function htmlMessage(center) {
           </td>
           <td class="c16" colspan="1" rowspan="1">
             <p class="c5"><span class="c6">
-             ${classroom.section}
+             ${classroom.room}
             </span></p>
           </td>
           <td class="c18" colspan="1" rowspan="1">
@@ -373,8 +373,8 @@ button:active {
       }
       .c11 {
         background-color: #ffffff;
-        max-width: 468pt;
-        padding: 72pt 72pt 72pt 72pt;
+      
+        padding: 10pt 20pt 20pt 22pt;
       }
       .c1 {
         padding: 0;
@@ -517,8 +517,8 @@ button:active {
       <span class="c0"
         >Despu&eacute;s de saludarle, queremos informarle que le acabamos de
         enviar la invitaci&oacute;n como co-teacher a las aulas de Google
-        Classroom que se utilizar&aacute;n en ${center.centerName}. Es de prioridad que todo estudiante registrado oficialmente en 2021, sea agregado a su respectiva aula virtual por profesor y centro. Favor seguir las
-        siguientes instrucciones.</span
+        Classroom que se utilizar&aacute;n en ${center.centerName}. Es de prioridad que todo estudiante registrado oficialmente en 2021, sea agregado a su respectiva aula virtual por profesor y centro. Sea que usted haya recibido un listado parcial o definitivo, inice el proceso de todas maneras. Favor seguir las
+        siguientes instrucciones para el primer proceso.</span
       >
     </p>
     <p class="c2">
@@ -659,6 +659,11 @@ button:active {
       </p>
       </li>
     </ul>
+    <p class="c17"><span class="c7">NOTAS IMPORTANTES:</span> </p>
+    <p class="c17"><span class="c0">1. Fecha límite registro profesores: el proceso de registro como co-profesor debe realizarse a mas tardar el lunes 18 de enero tanto de coordinadores como de profesores. Tan pronto concluya, en la misma fecha, envíe el correo solicitado de confirmación. </span></p>
+    
+    <p class="c17"><span class="c0">2. Fecha límite para registrar estudiantes: En proceso de asignación al aula virtual, contacto individual, y verificación de estudiantes se realizará en (2) días, con fecha límite al miércoles 20 de enero del 2021. Debe participar todo el personal del centro (coordinador, profesores, técnicos, secretarios). Debe determinarse que cada estudiante asignado, ha decidido realmente aceptar la beca e iniciar clases el 1ro de febrero. Con esto, cada centro debe reportar a su supervisor inmediato, de forma oportuna, el listado de estudiantes real con el soporte de las aulas creadas a más tardas el miércoles 20.</span></p>
+
     <p class="c17"><span class="c0">Atentamente,</span></p>
     <p class="c17">
       <span class="c0">Equipo de logistica de aulas virtuales</span>

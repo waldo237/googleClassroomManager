@@ -3,8 +3,8 @@ function generify() {
   const courses = Classroom.Courses.list();
 
   courses.courses.forEach((course) => {
-    if (!course.name.includes("BASIC 1 2021")) {
-      course.name = "Copy of Class"
+    if (!course.name.includes("Copia")) {
+      course.name = "Copia of Class"
       course.section = '';
       course.room = '';
 

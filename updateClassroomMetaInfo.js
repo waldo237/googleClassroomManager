@@ -9,10 +9,10 @@ function updateClassroomMetaInfo(params) {
   }
   const classroomNumber = (centerNameCounter[centerName] >= 1) ? centerNameCounter[centerName] : updateCurrentVal + 1;
 
-  course.name = `${shortenStr(centerName, 25)} | classroom ${classroomNumber} | basic 1 | ${shortenStr(city, 15)}, ${shortenStr(province, 15)}`;
+  course.name = `${shortenStr(centerName, 25)} | classroom ${classroomNumber}-${representative.charAt(0)} | basic 1 | ${shortenStr(city, 25)}.`;
 
   course.section = `TEACHER'S NAME | ${city}`
-  course.room = `${getInitials(centerName)} - ${shortenStr(city, 8)} - ${classroomNumber}`
+  course.room = `${getInitials(centerName)} - ${getInitials(city)}${getInitials(representative)}  - ${classroomNumber}`
   course.descriptionHeading = "Welcome to the English Immersion Program"
   course.description = `Esta es una aula virtual para impartir las clases sincrónicas y asíncronas del nivel Básico 1 del Programa de Ingles de Inmersión para la           Competitividad en ${centerName}, de ${province}. Si necesita asistencia, el encargado del centro es ${representative}. Usted puede contactarlo via su correo electrónico: ${email}.
   
