@@ -4,21 +4,21 @@
  */
 function s() {
   try {
-
     const centers = importClassBluePrint();
-    const courses = Classroom.Courses.list().courses;
+    const { courses } = Classroom.Courses.list();
     const theCreatorsEmail = Session.getEffectiveUser().getEmail();
-    const centerNameCounter = {}
+    const centerNameCounter = {};
 
     for (center of centers) {
       let thereAreNotMoreClassroomsLeft = false;
-      const numberOfClassrooms = Number.parseInt(center[3]), centerName = center[0], representative = center[1],
-        email = center[2], supervisor = center[4], supervisorEmail = center[5], city = center[6],
-        province = center[7], region = center[8];
+      const numberOfClassrooms = Number.parseInt(center[3]); const centerName = center[0]; const representative = center[1];
+      const email = center[2]; const supervisor = center[4]; const supervisorEmail = center[5]; const city = center[6];
+      const province = center[7]; const
+        region = center[8];
 
-      let classroomsThatAreDone = [];
+      const classroomsThatAreDone = [];
 
-      if (checkIfBatchIsInitialized(centerName, representative)) addLog('This batch was already initialized but it is still in progress')
+      if (checkIfBatchIsInitialized(centerName, representative)) addLog('This batch was already initialized but it is still in progress');
 
       // find the number of the row in order to update and compare the values of numberOfCenters and updated
       const recordIndex = centers.indexOf(center) + 2;
@@ -35,13 +35,11 @@ function s() {
        */
 
       for (let i = 0; i < numberOfClassrooms; i++) {
-
-
         if (numberOfClassrooms != updateCurrentVal) {
-          const course = courses.pop(); //pick the next course from the list.
+          const course = courses.pop(); // pick the next course from the list.
 
           if (!course) {
-            addLog(`There are not more classes available in this email address. The next Classroom should be ${centerName} | classroom ${updateCurrentVal + 1} from ${representative}`)
+            addLog(`There are not more classes available in this email address. The next Classroom should be ${centerName} | classroom ${updateCurrentVal + 1} from ${representative}`);
             thereAreNotMoreClassroomsLeft = true;
             break;
           } else if (courses[courses.length - 1] && !courses[courses.length - 1].name.toLocaleLowerCase().includes('copia')) {
@@ -49,8 +47,9 @@ function s() {
             continue;
           }
           if (course.name.toLocaleLowerCase().includes('copia')) {
-
-            const updatedClassroom = updateClassroomMetaInfo({ centerName, city, province, email, representative, course, updateCurrentVal, centerNameCounter });
+            const updatedClassroom = updateClassroomMetaInfo({
+              centerName, city, province, email, representative, course, updateCurrentVal, centerNameCounter,
+            });
             classroomsThatAreDone.push(updatedClassroom);
 
             /**
@@ -64,35 +63,50 @@ function s() {
 
             getBluePrintSheet().getRange(recordIndex, 11).setValue(theCreatorsEmail);
 
-
             /**
              * Save to DB. When a classroom is already updated,
              *  its metadata is persisted to the database{spreadsheet}
              */
-            const { id, name, enrollmentCode, room, section, updateTime, alternateLink } = updatedClassroom;
+            const {
+              id, name, enrollmentCode, room, section, updateTime, alternateLink,
+            } = updatedClassroom;
 
             const results = {
-              id, name, enrollmentCode, alternateLink, representative, email, supervisor,
-              supervisorEmail, theCreatorsEmail, room, section,
-              centerName, city, province, region, updateTime: new Date(updateTime).toLocaleString('es-do')
-            }
+              id,
+              name,
+              enrollmentCode,
+              alternateLink,
+              representative,
+              email,
+              supervisor,
+              supervisorEmail,
+              theCreatorsEmail,
+              room,
+              section,
+              centerName,
+              city,
+              province,
+              region,
+              updateTime: new Date(updateTime).toLocaleString('es-do'),
+            };
 
             writeOutputToSpreadSheet(results);
           }
-
         }
       }
       if (thereAreNotMoreClassroomsLeft) break;
       /**
        * Send an email with all the information of each class the representative
        * has and giving instructions on what to do next. 1→ email per Rep,  cc, supervisor and
-       * param center: { emailAddresses: [ ], centerName, coordinator, classrooms:[ { section, enrollmentCode, name } ]} 
+       * param center: { emailAddresses: [ ], centerName, coordinator, classrooms:[ { section, enrollmentCode, name } ]}
        */
 
       if (classroomsThatAreDone.length && !checkIfBatchIsInitialized(centerName, representative)) {
-      classroomsForEmails = getOutputedRecordsFromCenter(centerName, representative)
+        classroomsForEmails = getOutputedRecordsFromCenter(centerName, representative);
 
-      notifyByEmail({ emailAddresses: [email, supervisorEmail], centerName, coordinador: representative, classrooms: classroomsForEmails });
+        notifyByEmail({
+          emailAddresses: [email, supervisorEmail], centerName, coordinador: representative, classrooms: classroomsForEmails,
+        });
       }
     }
   } catch (e) {
